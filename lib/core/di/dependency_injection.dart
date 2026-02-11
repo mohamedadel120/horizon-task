@@ -1,10 +1,14 @@
-﻿import 'package:dio/dio.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:task/core/helpers/api_constants.dart';
 import 'package:task/core/networking/api_client.dart';
 import 'package:task/core/networking/dio_factory.dart';
 import 'package:task/core/networking/network_info.dart';
 import 'package:task/core/services/firebase_messaging_service.dart';
+import 'package:task/features/home/data/datasources/home_firestore_service.dart';
+import 'package:task/features/home/data/repository/home_repository.dart';
+import 'package:task/features/home/logic/home_cubit.dart';
 // import 'package:task/core/services/chat_notification_service.dart';
 // import 'package:task/core/services/firebase_chat_service.dart';
 /*
@@ -106,6 +110,15 @@ Future<void> setupGetIt() async {
       baseUrl: ApiConstants.baseUrl, // Use baseUrl from constants
     ),
   );
+
+  /// Home - Firestore categories & products
+  sl.registerLazySingleton<HomeFirestoreService>(
+    () => HomeFirestoreService(FirebaseFirestore.instance),
+  );
+  sl.registerLazySingleton<HomeRepository>(
+    () => HomeRepository(sl<HomeFirestoreService>()),
+  );
+  sl.registerFactory<HomeCubit>(() => HomeCubit(sl<HomeRepository>()));
 
   /*
   ///device token

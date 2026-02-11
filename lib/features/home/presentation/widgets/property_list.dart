@@ -1,56 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:task/features/home/presentation/widgets/property_card.dart';
+import 'package:task/features/home/data/models/product_model.dart';
 import 'package:task/features/home/presentation/screens/property_details_screen.dart';
+import 'package:task/features/home/presentation/widgets/property_card.dart';
 
 class PropertyList extends StatelessWidget {
-  const PropertyList({super.key});
+  final List<ProductModel> products;
+
+  const PropertyList({super.key, required this.products});
 
   @override
   Widget build(BuildContext context) {
-    final properties = [
-      {
-        'image':
-            'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400',
-        'title': 'Modern Loft',
-        'location': 'Central District',
-        'price': '\$120/night',
-      },
-      {
-        'image':
-            'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400',
-        'title': 'Woodland Cabin',
-        'location': 'North Hills',
-        'price': '\$85/night',
-      },
-      {
-        'image':
-            'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400',
-        'title': 'Beachside Suite',
-        'location': 'Coastal Bay',
-        'price': '\$200/night',
-      },
-    ];
+    if (products.isEmpty) {
+      return Padding(
+        padding: EdgeInsets.symmetric(vertical: 24.h),
+        child: Center(
+          child: Text(
+            'No products yet',
+            style: TextStyle(
+              fontSize: 14.sp,
+              color: Colors.grey,
+            ),
+          ),
+        ),
+      );
+    }
 
     return Column(
-      children: properties
+      children: products
           .map(
-            (property) => Padding(
+            (product) => Padding(
               padding: EdgeInsets.only(bottom: 16.h),
               child: PropertyCard(
-                imageUrl: property['image']!,
-                title: property['title']!,
-                location: property['location']!,
-                price: property['price']!,
+                imageUrl: product.imageUrl,
+                title: product.title,
+                location: product.location,
+                price: product.displayPrice,
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => PropertyDetailsScreen(
-                        title: property['title']!,
-                        location: property['location']!,
-                        price: property['price']!,
-                        imageUrl: property['image']!,
+                        title: product.title,
+                        location: product.location,
+                        price: product.displayPrice,
+                        imageUrl: product.imageUrl,
                       ),
                     ),
                   );

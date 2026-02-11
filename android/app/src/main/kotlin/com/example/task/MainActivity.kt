@@ -1,4 +1,4 @@
-package com.example.task
+package com.horizon.task
 
 import io.flutter.embedding.android.FlutterActivity
 

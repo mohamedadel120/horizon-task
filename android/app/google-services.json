@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "284225918938",
+    "project_id": "task-60403",
+    "storage_bucket": "task-60403.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284225918938:android:b80bb005e3c4ea7048d2e3",
+        "android_client_info": {
+          "package_name": "com.example.task"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284225918938-1b8pforrukk0oui074t9hjf21a6bro1q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiuCWHwdQ973VCjBTHXgPN8PTyaROESpU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "284225918938-1b8pforrukk0oui074t9hjf21a6bro1q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "284225918938-osqlnp5lfhsm69egj7nucn6oso2d1ih4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.taskDashboard"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284225918938:android:1f29220ff06155b048d2e3",
+        "android_client_info": {
+          "package_name": "com.horizon.task"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284225918938-1b8pforrukk0oui074t9hjf21a6bro1q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiuCWHwdQ973VCjBTHXgPN8PTyaROESpU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "284225918938-1b8pforrukk0oui074t9hjf21a6bro1q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "284225918938-osqlnp5lfhsm69egj7nucn6oso2d1ih4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.taskDashboard"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284225918938:android:a47b9719b6d965bc48d2e3",
+        "android_client_info": {
+          "package_name": "com.horizon.task_dashboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284225918938-1b8pforrukk0oui074t9hjf21a6bro1q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiuCWHwdQ973VCjBTHXgPN8PTyaROESpU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "284225918938-1b8pforrukk0oui074t9hjf21a6bro1q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "284225918938-osqlnp5lfhsm69egj7nucn6oso2d1ih4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.taskDashboard"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
