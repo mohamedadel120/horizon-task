@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task/core/helpers/spacing.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SearchBar extends StatelessWidget {
@@ -24,7 +25,7 @@ class SearchBar extends StatelessWidget {
         child: Row(
           children: [
             Icon(Icons.search, color: Colors.grey[600], size: 20.sp),
-            SizedBox(width: 12.w),
+            horizontalSpace(12.w),
             Expanded(
               child: Text(
                 hintText,

@@ -1,17 +1,30 @@
+import 'package:dartz/dartz.dart';
+import 'package:task/core/base/base_repository.dart';
+import 'package:task/core/errors/failures/failures.dart';
 import 'package:task/features/home/data/datasources/home_firestore_service.dart';
-import 'package:task/features/home/data/models/category_model.dart';
+import 'package:task/features/home/data/models/home_data_model.dart';
 import 'package:task/features/home/data/models/product_model.dart';
 
-class HomeRepository {
+class HomeRepository extends BaseRepository {
   HomeRepository(this._firestoreService);
 
   final HomeFirestoreService _firestoreService;
 
   Future<void> seedIfEmpty() => _firestoreService.seedIfEmpty();
 
-  Future<List<CategoryModel>> getCategories() =>
-      _firestoreService.getCategories();
+  Future<Either<GFailure, HomeDataModel>> getHomeData() async {
+    return safeCall(() async {
+      final categories = await _firestoreService.getCategories();
+      final products = await _firestoreService.getProducts();
+      return HomeDataModel(categories: categories, products: products);
+    });
+  }
 
-  Future<List<ProductModel>> getProducts({String? categoryId}) =>
-      _firestoreService.getProducts(categoryId: categoryId);
+  Future<Either<GFailure, List<ProductModel>>> getProductsForCategory({
+    String? categoryId,
+  }) async {
+    return safeCall(() async {
+      return await _firestoreService.getProducts(categoryId: categoryId);
+    });
+  }
 }

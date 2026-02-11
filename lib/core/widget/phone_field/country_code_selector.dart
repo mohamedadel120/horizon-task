@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:task/core/helpers/spacing.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:task/core/theming/colors.dart';
 import 'package:task/core/utils/constants/assets/app_icons.dart';
@@ -38,7 +39,7 @@ class CountryCodeSelector extends StatelessWidget {
                 ),
                 child: SvgPicture.asset(AppIcons.SAUDI_FLAG),
               ),
-              const SizedBox(width: 8),
+              horizontalSpace(8),
               Text(
                 selectedCountryCode,
                 style: TextStyle(
@@ -55,4 +56,3 @@ class CountryCodeSelector extends StatelessWidget {
     );
   }
 }
-

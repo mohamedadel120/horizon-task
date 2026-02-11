@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task/core/helpers/spacing.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AuthTextField extends StatelessWidget {
@@ -8,6 +9,7 @@ class AuthTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool obscureText;
   final Widget? suffixIcon;
+  final String? Function(String?)? validator;
 
   const AuthTextField({
     super.key,
@@ -17,6 +19,7 @@ class AuthTextField extends StatelessWidget {
     this.keyboardType,
     this.obscureText = false,
     this.suffixIcon,
+    this.validator,
   });
 
   @override
@@ -32,11 +35,12 @@ class AuthTextField extends StatelessWidget {
             color: Colors.black,
           ),
         ),
-        SizedBox(height: 8.h),
-        TextField(
+        verticalSpace(8.h),
+        TextFormField(
           controller: controller,
           keyboardType: keyboardType,
           obscureText: obscureText,
+          validator: validator,
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle: TextStyle(color: Colors.grey[400]),

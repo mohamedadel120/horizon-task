@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:task/core/theming/colors.dart';
+import 'package:task/core/utils/constants/assets/app_icons.dart';
 
 class HomeBottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -24,26 +25,26 @@ class HomeBottomNavBar extends StatelessWidget {
       unselectedLabelStyle: TextStyle(fontSize: 12.sp),
       items: [
         _buildNavItem(
-          icon: 'assets/icons/iconify-icon (1).svg',
-          activeIcon: 'assets/icons/iconify-icon (1).svg',
+          icon: AppIcons.HOME,
+          activeIcon: AppIcons.HOME,
           label: 'Home',
           isSelected: currentIndex == 0,
         ),
         _buildNavItem(
-          icon: 'assets/icons/SVG.svg',
-          activeIcon: 'assets/icons/SVG.svg',
+          icon: AppIcons.EXPLORE,
+          activeIcon: AppIcons.EXPLORE,
           label: 'Explore',
           isSelected: currentIndex == 1,
         ),
         _buildNavItem(
-          icon: 'assets/icons/iconify-icon (2).svg',
-          activeIcon: 'assets/icons/iconify-icon (2).svg',
+          icon: AppIcons.SAVED,
+          activeIcon: AppIcons.SAVED,
           label: 'Saved',
           isSelected: currentIndex == 2,
         ),
         _buildNavItem(
-          icon: 'assets/icons/iconify-icon (3).svg',
-          activeIcon: 'assets/icons/iconify-icon (3).svg',
+          icon: AppIcons.PROFILE,
+          activeIcon: AppIcons.PROFILE,
           label: 'Profile',
           isSelected: currentIndex == 3,
         ),

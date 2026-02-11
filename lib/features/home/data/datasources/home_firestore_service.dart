@@ -12,22 +12,21 @@ class HomeFirestoreService {
 
   /// Seeds example categories and products when collections are empty.
   Future<void> seedIfEmpty() async {
-    final categoriesSnap =
-        await _firestore.collection(_categoriesCollection).limit(1).get();
+    final categoriesSnap = await _firestore
+        .collection(_categoriesCollection)
+        .limit(1)
+        .get();
     if (categoriesSnap.docs.isNotEmpty) return;
 
     final batch = _firestore.batch();
 
-    final popularRef =
-        _firestore.collection(_categoriesCollection).doc();
+    final popularRef = _firestore.collection(_categoriesCollection).doc();
     batch.set(popularRef, {'name': 'Popular', 'order': 0});
 
-    final recentRef =
-        _firestore.collection(_categoriesCollection).doc();
+    final recentRef = _firestore.collection(_categoriesCollection).doc();
     batch.set(recentRef, {'name': 'Recent', 'order': 1});
 
-    final favoritesRef =
-        _firestore.collection(_categoriesCollection).doc();
+    final favoritesRef = _firestore.collection(_categoriesCollection).doc();
     batch.set(favoritesRef, {'name': 'Favorites', 'order': 2});
 
     await batch.commit();
@@ -37,6 +36,7 @@ class HomeFirestoreService {
     final recentId = recentRef.id;
     final favoritesId = favoritesRef.id;
 
+    final now = DateTime.now();
     final products = [
       {
         'title': 'Modern Loft',
@@ -45,6 +45,14 @@ class HomeFirestoreService {
         'location': 'Central District',
         'price': '\$120/night',
         'categoryId': popularId,
+        'description':
+            'A beautiful modern loft in the heart of the city. Features high ceilings, large windows, and state-of-the-art appliances.',
+        'features': ['1 Bedroom', '1 Bath', 'Wi-Fi', 'Kitchen'],
+        'basePrice': 120.0,
+        'cleaningFee': 50.0,
+        'taxRate': 12.0,
+        'createdAt': now,
+        'updatedAt': now,
       },
       {
         'title': 'Woodland Cabin',
@@ -53,6 +61,20 @@ class HomeFirestoreService {
         'location': 'North Hills',
         'price': '\$85/night',
         'categoryId': popularId,
+        'description':
+            'Experience the ultimate retreat in this cozy woodland cabin located in the serene North Hills. Perfect for weekend getaways.',
+        'features': [
+          '2 Bedrooms',
+          '1 Bath',
+          'Wi-Fi',
+          'Pet Friendly',
+          'Fireplace',
+        ],
+        'basePrice': 85.0,
+        'cleaningFee': 30.0,
+        'taxRate': 8.0,
+        'createdAt': now,
+        'updatedAt': now,
       },
       {
         'title': 'Beachside Suite',
@@ -61,6 +83,20 @@ class HomeFirestoreService {
         'location': 'Coastal Bay',
         'price': '\$200/night',
         'categoryId': popularId,
+        'description':
+            'Luxurious suite with a private balcony overlooking the ocean. Steps away from the white sand beaches.',
+        'features': [
+          '1 Bedroom',
+          '1 Bath',
+          'Wi-Fi',
+          'Ocean View',
+          'Pool Access',
+        ],
+        'basePrice': 200.0,
+        'cleaningFee': 75.0,
+        'taxRate': 15.0,
+        'createdAt': now,
+        'updatedAt': now,
       },
       {
         'title': 'City Studio',
@@ -69,6 +105,14 @@ class HomeFirestoreService {
         'location': 'Downtown',
         'price': '\$95/night',
         'categoryId': recentId,
+        'description':
+            'Compact and efficient studio perfect for solo travelers or business trips. Located in the vibrant downtown area.',
+        'features': ['Studio', '1 Bath', 'Wi-Fi', 'Work Desk'],
+        'basePrice': 95.0,
+        'cleaningFee': 25.0,
+        'taxRate': 5.0,
+        'createdAt': now,
+        'updatedAt': now,
       },
       {
         'title': 'Lakeside Retreat',
@@ -77,6 +121,14 @@ class HomeFirestoreService {
         'location': 'Green Valley',
         'price': '\$150/night',
         'categoryId': favoritesId,
+        'description':
+            'Quiet and peaceful retreat by the lake. Ideal for bird watching, fishing, or just relaxing by the water.',
+        'features': ['3 Bedrooms', '2 Baths', 'Lakeside', 'Fire Pit'],
+        'basePrice': 150.0,
+        'cleaningFee': 60.0,
+        'taxRate': 10.0,
+        'createdAt': now,
+        'updatedAt': now,
       },
     ];
 
@@ -88,8 +140,7 @@ class HomeFirestoreService {
   }
 
   Future<List<CategoryModel>> getCategories() async {
-    final snapshot =
-        await _firestore.collection(_categoriesCollection).get();
+    final snapshot = await _firestore.collection(_categoriesCollection).get();
 
     final list = snapshot.docs
         .map((doc) => CategoryModel.fromFirestore(doc.id, doc.data()))
@@ -99,8 +150,9 @@ class HomeFirestoreService {
   }
 
   Future<List<ProductModel>> getProducts({String? categoryId}) async {
-    Query<Map<String, dynamic>> query =
-        _firestore.collection(_productsCollection);
+    Query<Map<String, dynamic>> query = _firestore.collection(
+      _productsCollection,
+    );
 
     if (categoryId != null && categoryId.isNotEmpty) {
       query = query.where('categoryId', isEqualTo: categoryId);

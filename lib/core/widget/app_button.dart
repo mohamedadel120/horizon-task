@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:task/core/helpers/spacing.dart';
 import 'package:task/core/theming/colors.dart';
 
 enum AppButtonType { primary, secondary, outline, text }
@@ -142,7 +143,7 @@ class AppButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           icon!,
-          const SizedBox(width: 8),
+          horizontalSpace(8),
           Flexible(
             child: Text(
               text,
@@ -213,4 +214,3 @@ class AppButton extends StatelessWidget {
     }
   }
 }
-

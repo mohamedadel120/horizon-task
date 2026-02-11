@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task/core/helpers/spacing.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task/core/theming/colors.dart';
 
@@ -18,7 +19,10 @@ class PropertyImageGallery extends StatelessWidget {
       padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: ColorManager.grey300),
+        border: Border.all(
+          color: ColorManager.grey300.withValues(alpha: .8),
+          width: .5.w,
+        ),
       ),
       child: Column(
         children: [
@@ -27,7 +31,7 @@ class PropertyImageGallery extends StatelessWidget {
             height: 240.h,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Colors.grey[200],
+              color: ColorManager.grey300.withValues(alpha: .8),
               borderRadius: BorderRadius.circular(16.r),
             ),
             child: ClipRRect(
@@ -40,21 +44,21 @@ class PropertyImageGallery extends StatelessWidget {
                     child: Icon(
                       Icons.image,
                       size: 48.sp,
-                      color: Colors.grey[400],
+                      color: ColorManager.grey300.withValues(alpha: .8),
                     ),
                   );
                 },
               ),
             ),
           ),
-          SizedBox(height: 12.h),
+          verticalSpace(12.h),
           // Thumbnails
           SizedBox(
             height: 48.h,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemCount: thumbnails.length,
-              separatorBuilder: (context, index) => SizedBox(width: 8.w),
+              separatorBuilder: (context, index) => horizontalSpace(8.w),
               itemBuilder: (context, index) {
                 return Container(
                   width: 64.w,
@@ -62,8 +66,8 @@ class PropertyImageGallery extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.r),
                     border: Border.all(
                       color: index == 0
-                          ? const Color(0xFF1560FF)
-                          : Colors.grey[300]!,
+                          ? ColorManager.mainColor
+                          : ColorManager.grey200.withValues(alpha: .8),
                       width: 2,
                     ),
                   ),

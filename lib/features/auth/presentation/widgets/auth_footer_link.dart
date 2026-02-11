@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task/core/helpers/spacing.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task/core/theming/colors.dart';
 
@@ -30,7 +31,7 @@ class AuthFooterLink extends StatelessWidget {
             style: TextStyle(
               fontSize: 14.sp,
               fontWeight: FontWeight.w600,
-              color: ColorManager.mainColor,
+              color: ColorManager.black,
             ),
           ),
         ),

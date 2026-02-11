@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:task/core/helpers/spacing.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task/core/theming/colors.dart';
 import 'package:task/core/theming/styles.dart';
@@ -70,7 +71,7 @@ class AppFormField extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 8),
+        verticalSpace(8),
         FormField<String>(
           validator: validator,
           builder: (state) {
@@ -149,7 +150,7 @@ class AppFormField extends StatelessWidget {
                   ),
                 ),
                 if (state.hasError) ...[
-                  const SizedBox(height: 6),
+                  verticalSpace(6),
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
@@ -162,7 +163,7 @@ class AppFormField extends StatelessWidget {
                     state.value != null &&
                     state.value!.isNotEmpty &&
                     !state.hasError) ...[
-                  const SizedBox(height: 6),
+                  verticalSpace(6),
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(

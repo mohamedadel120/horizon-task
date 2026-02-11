@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task/core/helpers/spacing.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task/core/theming/colors.dart';
 import 'package:task/features/home/presentation/widgets/info_row.dart';
@@ -12,7 +13,10 @@ class PropertyAvailabilitySection extends StatelessWidget {
       padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: ColorManager.grey300),
+        border: Border.all(
+          color: ColorManager.grey300.withValues(alpha: .8),
+          width: .5.w,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,14 +26,14 @@ class PropertyAvailabilitySection extends StatelessWidget {
             style: TextStyle(
               fontSize: 18.sp,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: ColorManager.primaryText,
             ),
           ),
-          SizedBox(height: 12.h),
+          verticalSpace(12.h),
           const InfoRow(
             label: 'Instant book',
             value: 'On',
-            valueColor: Color(0xFF4CAF50),
+            valueColor: ColorManager.primaryText,
           ),
           const InfoRow(label: 'Min nights', value: '2'),
           const InfoRow(label: 'Max guests', value: '4'),

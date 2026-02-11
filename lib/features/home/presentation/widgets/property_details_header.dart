@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task/core/helpers/spacing.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PropertyDetailsHeader extends StatelessWidget {
@@ -19,7 +20,7 @@ class PropertyDetailsHeader extends StatelessWidget {
             color: Colors.black,
           ),
         ),
-        SizedBox(height: 8.h),
+        verticalSpace(8.h),
         Row(
           children: [
             Container(
@@ -35,7 +36,7 @@ class PropertyDetailsHeader extends StatelessWidget {
                     size: 6.sp,
                     color: const Color(0xFF166534),
                   ),
-                  SizedBox(width: 4.w),
+                  horizontalSpace(4.w),
                   Text(
                     'Active',
                     style: TextStyle(
@@ -47,7 +48,7 @@ class PropertyDetailsHeader extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(width: 12.w),
+            horizontalSpace(12.w),
             Text(
               'ID: #CAB-4321',
               style: TextStyle(fontSize: 12.sp, color: Colors.grey[500]),

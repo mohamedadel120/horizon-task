@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:task/core/helpers/spacing.dart';
+import 'package:task/core/theming/colors.dart';
 
 class FeatureChip extends StatelessWidget {
   final String label;
@@ -10,8 +12,9 @@ class FeatureChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+
       decoration: BoxDecoration(
-        color: const Color(0xFFF5F6F8),
+        color: ColorManager.grey200,
         borderRadius: BorderRadius.circular(8.r),
       ),
       child: Row(
@@ -20,11 +23,12 @@ class FeatureChip extends StatelessWidget {
           Text(
             label,
             style: TextStyle(
-              fontSize: 13.sp,
+              fontSize: 12.sp,
               color: Colors.black87,
               fontWeight: FontWeight.w500,
             ),
           ),
+          horizontalSpace(1.w),
         ],
       ),
     );

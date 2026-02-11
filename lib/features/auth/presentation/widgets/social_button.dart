@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task/core/helpers/spacing.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -17,7 +18,8 @@ class SocialButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 52.h,
+      height: 48.h,
+      width: 147.5.w,
       child: OutlinedButton(
         onPressed: onPressed,
         style: OutlinedButton.styleFrom(
@@ -31,7 +33,7 @@ class SocialButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(icon, width: 24.w, height: 24.h),
-            SizedBox(width: 8.w),
+            horizontalSpace(8.w),
             Text(
               label,
               style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),

@@ -22,7 +22,7 @@ mixin SafeDisposeMixin {
         controller.removeListener(() {});
         controller.dispose();
       }
-        } catch (e) {
+    } catch (e) {
       print('Error disposing $controllerName: $e');
     }
   }
@@ -39,7 +39,7 @@ mixin SafeDisposeMixin {
     try {
       for (final controller in controllers) {
         controller.clear();
-            }
+      }
     } catch (e) {
       print('Error clearing controllers: $e');
     }
@@ -100,4 +100,3 @@ mixin SafeDisposeMixin {
     }
   }
 }
-

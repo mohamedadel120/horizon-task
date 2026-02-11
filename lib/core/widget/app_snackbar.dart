@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:task/core/helpers/spacing.dart';
 
 /// Global SnackBar widget with consistent styling and functionality
 class AppSnackBar {
@@ -113,11 +114,11 @@ class AppSnackBar {
         content: Row(
           children: [
             leading ?? Icon(snackBarConfig.icon, color: Colors.white, size: 20),
-            const SizedBox(width: 8),
+            horizontalSpace(8),
             Expanded(
-              child: Text(message, style: const TextStyle(color: Colors.white)),
+              child: Text(message, style: TextStyle(color: Colors.white)),
             ),
-            if (trailing != null) ...[const SizedBox(width: 8), trailing],
+            if (trailing != null) ...[horizontalSpace(8), trailing],
           ],
         ),
         backgroundColor: snackBarConfig.backgroundColor,
@@ -260,4 +261,3 @@ extension SnackBarExtension on BuildContext {
     AppSnackBar.clearAll(this);
   }
 }
-

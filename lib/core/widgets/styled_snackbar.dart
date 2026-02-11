@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:task/core/helpers/spacing.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:task/core/helpers/extensions.dart';
 import 'package:task/core/theming/colors.dart';
@@ -60,7 +61,7 @@ class StyledSnackBar {
         content: Row(
           children: [
             Icon(icon, color: Colors.white, size: 20.sp),
-            SizedBox(width: 8.w),
+            horizontalSpace(8.w),
             Expanded(
               child: Text(
                 message,
@@ -85,4 +86,3 @@ class StyledSnackBar {
     );
   }
 }
-

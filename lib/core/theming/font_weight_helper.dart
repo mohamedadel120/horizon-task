@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:task/core/helpers/spacing.dart';
 
 class FontWeightHelper {
   static const FontWeight thin = FontWeight.w100;
@@ -9,4 +10,3 @@ class FontWeightHelper {
   static const FontWeight semiBold = FontWeight.w600;
   static const FontWeight bold = FontWeight.w700;
 }
-

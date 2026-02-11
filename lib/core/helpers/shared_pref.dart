@@ -84,16 +84,22 @@ class SharedPrefHelper {
     const flutterSecureStorage = FlutterSecureStorage();
     debugPrint('FlutterSecureStorage : getSecuredString with key : $key');
     try {
-      final value = await flutterSecureStorage.read(key: key).timeout(
-        const Duration(seconds: 2),
-        onTimeout: () {
-          debugPrint('FlutterSecureStorage Error: getSecuredString timed out for key: $key');
-          return '';
-        },
-      );
+      final value = await flutterSecureStorage
+          .read(key: key)
+          .timeout(
+            const Duration(seconds: 2),
+            onTimeout: () {
+              debugPrint(
+                'FlutterSecureStorage Error: getSecuredString timed out for key: $key',
+              );
+              return '';
+            },
+          );
       return value ?? '';
     } catch (e) {
-      debugPrint('FlutterSecureStorage Error: getSecuredString failed for key: $key - $e');
+      debugPrint(
+        'FlutterSecureStorage Error: getSecuredString failed for key: $key - $e',
+      );
       return '';
     }
   }
@@ -105,4 +111,3 @@ class SharedPrefHelper {
     await flutterSecureStorage.deleteAll();
   }
 }
-

@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:task/core/helpers/spacing.dart';
 
 /// Holds all localized strings needed for PDF generation
 class PdfLocalizedStrings {

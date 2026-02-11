@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:task/core/helpers/spacing.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task/core/theming/colors.dart';
 import 'package:task/core/widget/phone_field/country_code_selector.dart';
@@ -18,7 +19,7 @@ class AppPhoneField extends StatelessWidget {
   final bool showValidation;
   final String? successMessage;
 
-  const AppPhoneField({
+  AppPhoneField({
     super.key,
     required this.controller,
     required this.label,
@@ -42,7 +43,7 @@ class AppPhoneField extends StatelessWidget {
           : CrossAxisAlignment.start,
       children: [
         PhoneFieldLabel(label: label, isRequired: isRequired),
-        const SizedBox(height: 8),
+        verticalSpace(8),
         FormField<String>(
           validator: validator,
           builder: (state) {
@@ -89,23 +90,20 @@ class AppPhoneField extends StatelessWidget {
                   ),
                 ),
                 if (state.hasError) ...[
-                  const SizedBox(height: 6),
+                  verticalSpace(6),
                   Align(
                     alignment: Alignment.centerRight,
                     child: Text(
                       state.errorText ?? '',
                       textAlign: isRTL ? TextAlign.right : TextAlign.left,
-                      style: const TextStyle(
-                        color: ColorManager.red,
-                        fontSize: 12,
-                      ),
+                      style: TextStyle(color: ColorManager.red, fontSize: 12),
                     ),
                   ),
                 ] else if (showValidation &&
                     state.value != null &&
                     state.value!.isNotEmpty &&
                     !state.hasError) ...[
-                  const SizedBox(height: 6),
+                  verticalSpace(6),
                   Text(
                     successMessage ?? '',
                     textAlign: isRTL ? TextAlign.right : TextAlign.left,

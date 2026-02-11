@@ -5,9 +5,11 @@ A modern, flexible state management architecture for Flutter apps that provides 
 ## 📁 Files Overview
 
 ### `base_cubit.dart`
+
 The main base cubit class that provides common functionality for all cubits in the app.
 
 **Key Features:**
+
 - Generic API call handling with `handleApiCall()` method
 - Automatic state management for loading, success, and error states
 - Operation-specific status tracking using endpoint names
@@ -15,9 +17,11 @@ The main base cubit class that provides common functionality for all cubits in t
 - Comprehensive logging for debugging
 
 ### `base_state.dart`
+
 The base state class that all cubit states should extend.
 
 **Key Features:**
+
 - Per-operation API state management
 - Status tracking (initial, loading, success, error)
 - Error message storage per operation
@@ -25,9 +29,11 @@ The base state class that all cubit states should extend.
 - Immutable state with copyWith functionality
 
 ### `base_builder_widget.dart`
+
 A specialized BlocBuilder widget that handles common UI patterns for different states.
 
 **Key Features:**
+
 - Automatic loading state handling with ShimmerSkeleton
 - Custom error widget support
 - Fake data display during loading
@@ -35,9 +41,11 @@ A specialized BlocBuilder widget that handles common UI patterns for different s
 - Clean separation of concerns
 
 ### `base_consumer_widget.dart`
+
 A specialized BlocConsumer widget that combines BlocBuilder and BlocListener functionality.
 
 **Key Features:**
+
 - All features of BaseBlocBuilder
 - State change listeners for side effects
 - Callback functions for different states (loading, success, error, initial)
@@ -46,6 +54,7 @@ A specialized BlocConsumer widget that combines BlocBuilder and BlocListener fun
 ## 🚀 Getting Started
 
 ### 1. Create a Model
+
 First, create a model that extends `BaseModel`:
 
 ```dart
@@ -119,12 +128,13 @@ class Product extends BaseModel {
 ```
 
 ### 2. Create a Wrapper Model (Required)
+
 For all data structures, create a wrapper that extends `BaseModel`:
 
 ```dart
 class ProductWrapper extends BaseModel {
   final List<Product> products;
-  
+
   ProductWrapper({required this.products});
 
   @override
@@ -169,6 +179,7 @@ class ProductWrapper extends BaseModel {
 ```
 
 ### 3. Create a State
+
 Create a state that extends `BaseState`:
 
 ```dart
@@ -197,6 +208,7 @@ class ProductState extends BaseState {
 ```
 
 ### 4. Create a Cubit
+
 Create a cubit that extends `BaseCubit`:
 
 ```dart
@@ -222,9 +234,11 @@ class ProductCubit extends BaseCubit<ProductState> {
 ```
 
 ### 5. Use in UI
+
 Use the `BaseBlocBuilder` or `BaseBlocConsumer` in your UI:
 
 #### Using BaseBlocBuilder (Simple UI)
+
 ```dart
 class ProductsPage extends StatelessWidget {
   final ProductCubit cubit;
@@ -259,9 +273,9 @@ class ProductsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(Icons.error, size: 64, color: Colors.red),
-                const SizedBox(height: 16),
+                const verticalSpace( 16),
                 Text('Error: $error'),
-                const SizedBox(height: 16),
+                const verticalSpace( 16),
                 ElevatedButton(
                   onPressed: () => cubit.fetchProducts(),
                   child: const Text('Retry'),
@@ -277,6 +291,7 @@ class ProductsPage extends StatelessWidget {
 ```
 
 #### Using BaseBlocConsumer (With Side Effects)
+
 ```dart
 class ProductsPageWithEffects extends StatelessWidget {
   final ProductCubit cubit;
@@ -331,9 +346,9 @@ class ProductsPageWithEffects extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(Icons.error, size: 64, color: Colors.red),
-                const SizedBox(height: 16),
+                const verticalSpace( 16),
                 Text('Error: $error'),
-                const SizedBox(height: 16),
+                const verticalSpace( 16),
                 ElevatedButton(
                   onPressed: () => cubit.fetchProducts(),
                   child: const Text('Retry'),
@@ -353,13 +368,16 @@ class ProductsPageWithEffects extends StatelessWidget {
 ### BaseCubit Methods
 
 #### `handleApiCall<T>({required String endPoint, required Future<Either<GFailure,T>> Function() apiCall})`
+
 Handles API calls with automatic state management.
 
 **Parameters:**
+
 - `endPoint`: The API endpoint name for tracking (e.g., `ApiConstants.products`)
 - `apiCall`: A function that returns a `Future<Either<GFailure, T>>`
 
 **Behavior:**
+
 1. Sets operation status to `loading`
 2. Clears any previous errors for the operation
 3. Executes the API call
@@ -367,32 +385,39 @@ Handles API calls with automatic state management.
 5. On failure: Sets status to `error` and stores error message
 
 #### `startOperation(String operation)`
+
 Manually starts an operation (sets loading state).
 
 #### `successOperation(String operation, {dynamic data})`
+
 Manually marks an operation as successful with optional data.
 
 #### `failOperation(String operation, String error)`
+
 Manually marks an operation as failed with error message.
 
 ### BaseState Methods
 
 #### `getStatus(String operation)`
+
 Returns the current status of a specific operation.
 
 **Returns:** `BaseStatus` (initial, loading, success, error)
 
 #### `getError(String operation)`
+
 Returns the error message for a specific operation.
 
 **Returns:** `String?` (null if no error)
 
 #### `getData(String operation)`
+
 Returns the response model for a specific operation.
 
 **Returns:** `BaseModel?` (null if no data)
 
 #### `getApiState(String operation)`
+
 Returns the complete API state for a specific operation.
 
 **Returns:** `BaseApiState`
@@ -400,18 +425,23 @@ Returns the complete API state for a specific operation.
 ### BaseBlocBuilder Properties
 
 #### `endPoint` (required)
+
 The API endpoint name to track in the state.
 
 #### `builder` (required)
+
 The widget builder function that receives the response model directly.
 
 #### `fakeDataForShimmer` (required)
+
 The fake data to display during loading state.
 
 #### `loading` (optional)
+
 Custom loading widget (defaults to ShimmerSkeleton).
 
 #### `errorBuilder` (optional)
+
 Custom error widget builder.
 
 ### BaseBlocConsumer Properties
@@ -419,21 +449,25 @@ Custom error widget builder.
 #### All BaseBlocBuilder properties plus:
 
 #### `onLoading` (optional)
+
 Callback triggered when the operation starts loading.
 
 **Signature:** `void Function(BuildContext context, S state)`
 
 #### `onSuccess` (optional)
+
 Callback triggered when the operation succeeds.
 
 **Signature:** `void Function(BuildContext context, S state, T data)`
 
 #### `onError` (optional)
+
 Callback triggered when the operation fails.
 
 **Signature:** `void Function(BuildContext context, S state, String error)`
 
 #### `onInitial` (optional)
+
 Callback triggered when the operation is in initial state.
 
 **Signature:** `void Function(BuildContext context, S state)`
@@ -441,6 +475,7 @@ Callback triggered when the operation is in initial state.
 ## 🎯 Best Practices
 
 ### 1. Always Use Wrapper Models
+
 **IMPORTANT:** The `BaseBlocBuilder` and `BaseBlocConsumer` expect a `BaseModel` response, not raw data types.
 
 ```dart
@@ -464,7 +499,9 @@ handleApiCall<List<Product>>(...) // This will cause errors!
 ```
 
 ### 2. Use BaseBlocConsumer for Side Effects
+
 Use `BaseBlocConsumer` when you need to:
+
 - Show snackbars or dialogs
 - Navigate to other screens
 - Log analytics events
@@ -499,6 +536,7 @@ BaseBlocConsumer<ProductCubit, ProductState, ProductWrapper>(
 ```
 
 ### 3. Use BaseBlocBuilder for Simple UI
+
 Use `BaseBlocBuilder` when you only need to display data without side effects:
 
 ```dart
@@ -514,6 +552,7 @@ BaseBlocBuilder<ProductCubit, ProductState, ProductWrapper>(
 ```
 
 ### 4. Endpoint Naming
+
 Use descriptive endpoint names that match your API structure:
 
 ```dart
@@ -525,6 +564,7 @@ handleApiCall(endPoint: 'api', ...);
 ```
 
 ### 5. Error Handling
+
 Always provide meaningful error messages:
 
 ```dart
@@ -536,6 +576,7 @@ return Left(GNetworkFailure(message: 'Error'));
 ```
 
 ### 6. Fake Data
+
 Provide realistic fake data that matches your UI structure:
 
 ```dart
@@ -557,6 +598,7 @@ BaseModel fakeData() {
 ```
 
 ### 7. State Helper Methods
+
 Use helper methods in your state for easy data access:
 
 ```dart
@@ -582,9 +624,11 @@ class ProductState extends BaseState {
 ### Common Issues
 
 #### 1. Type Mismatch Errors
+
 **Problem:** `Class 'ProductWrapper' has no instance getter 'length'`
 
 **Solution:** Make sure your UI expects the correct data type:
+
 ```dart
 // Wrong
 builder: (context, products) {
@@ -602,6 +646,7 @@ builder: (context, model) {
 ```
 
 #### 2. State Not Updating
+
 Make sure you're using the correct endpoint name in your UI:
 
 ```dart
@@ -616,6 +661,7 @@ BaseBlocBuilder(
 ```
 
 #### 3. Loading State Not Showing
+
 Ensure you have fake data provided:
 
 ```dart
@@ -626,6 +672,7 @@ BaseBlocBuilder(
 ```
 
 #### 4. Error State Not Showing
+
 Check that your API call returns a `Left` with a failure:
 
 ```dart
@@ -642,6 +689,7 @@ handleApiCall(
 ```
 
 #### 5. Listener Not Triggering
+
 Make sure you're using `BaseBlocConsumer` instead of `BaseBlocBuilder` when you need listeners:
 
 ```dart
@@ -663,14 +711,15 @@ BaseBlocBuilder<ProductCubit, ProductState, ProductWrapper>(
 ## 📝 Complete Examples
 
 ### User List Example (Correct Implementation)
+
 ```dart
 // 1. Model
 class User extends BaseModel {
   final String name;
   final String email;
-  
+
   User({required this.name, required this.email});
-  
+
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       name: json['name'] ?? '',
@@ -698,7 +747,7 @@ class User extends BaseModel {
 // 2. Wrapper Model (Required!)
 class UserWrapper extends BaseModel {
   final List<User> users;
-  
+
   UserWrapper({required this.users});
 
   @override
@@ -733,12 +782,12 @@ class UserWrapper extends BaseModel {
 // 3. State
 class UserState extends BaseState {
   UserState({super.apiStates});
-  
+
   @override
   UserState copyWith({Map<String, BaseApiState>? apiStates}) {
     return UserState(apiStates: apiStates ?? this.apiStates);
   }
-  
+
   List<User> get users {
     final data = getData(ApiConstants.users);
     if (data is UserWrapper) {
@@ -751,7 +800,7 @@ class UserState extends BaseState {
 // 4. Cubit
 class UserCubit extends BaseCubit<UserState> {
   UserCubit() : super(UserState());
-  
+
   Future<void> fetchUsers() async {
     handleApiCall<UserWrapper>( // ✅ Use wrapper model
       endPoint: ApiConstants.users,

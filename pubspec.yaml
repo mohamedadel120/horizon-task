@@ -53,8 +53,9 @@ dependencies:
   cloud_firestore: ^6.1.2
   google_fonts: ^6.3.2
   firebase_auth: ^6.1.4
-  google_sign_in: ^7.2.0
+  google_sign_in: ^6.2.2
   sign_in_with_apple: ^7.0.1
+  crypto: ^3.0.6
   intl: ^0.20.2
   equatable: ^2.0.8
 

@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:task/core/helpers/spacing.dart';
 
 class ColorManager {
   // Legacy aliases kept for backward compatibility
@@ -19,6 +20,7 @@ class ColorManager {
   static const Color primary50 = Color(0xFFFFFFFF);
   static const Color primary70 = Color(0xFFFFFFFF);
   static const Color primary100 = Color(0xFFFFFFFF);
+  static const Color primary200 = Color(0xFFF7FBFF);
   static const Color status1Background = Color(0xFFFFF7E6);
   static const Color status2Background = Color(0xFFE8F5E9);
   static const Color status4Background = Color(0xFFE3F2FD);
@@ -74,7 +76,7 @@ class ColorManager {
   static const Color statusNeutral = Color(0x33D9D9D9); // 20% opacity
 
   // Common Usage Colors
-  static const Color primaryBackground = primary100;
+  static const Color primaryBackground = primary200;
   static const Color secondaryBackground = secondary100;
   static const Color cardBackground = secondary50;
   static const Color primaryButton = accent50;
@@ -102,13 +104,16 @@ class ColorManager {
   static const Color grey = gray;
   static const Color grey100 = Color(0xFFF5F5F5); // Colors.grey[100]
   static const Color grey200 = Color(0xFFEEEEEE); // Colors.grey[200]
-  static const Color grey300 = Color(0xFFE0E0E0); // Colors.grey[300]
+  static const Color grey300 = Color(0xFF94A3B8); // Colors.grey[300]
   static const Color grey400 = Color(0xFFBDBDBD); // Colors.grey[400]
   static const Color grey500 = Color(0xFF9E9E9E); // Colors.grey[500]
   static const Color grey600 = Color(0xFF757575); // Colors.grey[600]
   static const Color grey700 = Color(0xFF616161); // Colors.grey[700]
   static const Color grey800 = Color(0xFF424242); // Colors.grey[800]
   static const Color grey900 = Color(0xFF212121); // Colors.grey[900]
+
+  // Specific UI Colors
+  static const Color propertyCardBg = Color(0xFFF8F9FA);
 }
 
 // Extension for easy usage with opacity

@@ -21,7 +21,7 @@ class CategoryTab extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
         decoration: BoxDecoration(
-          color: isSelected ? ColorManager.mainColor : Colors.white,
+          color: isSelected ? ColorManager.mainColor : ColorManager.grey100,
           borderRadius: BorderRadius.circular(20.r),
           border: Border.all(
             color: isSelected ? ColorManager.mainColor : Colors.transparent,
@@ -32,7 +32,7 @@ class CategoryTab extends StatelessWidget {
           style: TextStyle(
             fontSize: 14.sp,
             fontWeight: FontWeight.w500,
-            color: isSelected ? Colors.white : Colors.black,
+            color: isSelected ? ColorManager.white : ColorManager.black,
           ),
         ),
       ),

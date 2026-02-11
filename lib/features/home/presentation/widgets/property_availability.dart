@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:task/core/helpers/spacing.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:task/core/helpers/spacing.dart';
 import 'package:task/features/home/presentation/widgets/section_title.dart';
 import 'package:task/features/home/presentation/widgets/info_row.dart';
 
@@ -21,7 +23,7 @@ class PropertyAvailability extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SectionTitle(title: 'Availability'),
-        SizedBox(height: 12.h),
+        verticalSpace(12.h),
         InfoRow(
           label: 'Instant book',
           value: instantBook ? 'On' : 'Off',

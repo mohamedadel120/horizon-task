@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task/core/helpers/spacing.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task/core/theming/colors.dart';
 
@@ -12,7 +13,7 @@ class AuthHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 60.h),
+        verticalSpace(60.h),
         Center(
           child: Container(
             width: 64.w,
@@ -28,7 +29,7 @@ class AuthHeader extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 32.h),
+        verticalSpace(32.h),
         Text(
           title,
           textAlign: TextAlign.center,
@@ -38,13 +39,13 @@ class AuthHeader extends StatelessWidget {
             color: Colors.black,
           ),
         ),
-        SizedBox(height: 8.h),
+        verticalSpace(8.h),
         Text(
           subtitle,
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 14.sp, color: Colors.grey[600]),
         ),
-        SizedBox(height: 40.h),
+        verticalSpace(40.h),
       ],
     );
   }

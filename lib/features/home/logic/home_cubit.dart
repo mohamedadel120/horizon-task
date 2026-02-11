@@ -1,51 +1,71 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:task/core/base/cubit/base_cubit.dart';
+import 'package:task/features/home/data/models/home_data_model.dart';
 import 'package:task/features/home/data/repository/home_repository.dart';
 import 'package:task/features/home/logic/home_state.dart';
 
-class HomeCubit extends Cubit<HomeState> {
-  HomeCubit(this._repository) : super(const HomeState());
+class HomeCubit extends BaseCubit<HomeState> {
+  HomeCubit(this._repository) : super(const HomeState()) {
+    _initUser();
+  }
 
   final HomeRepository _repository;
 
-  Future<void> loadCategoriesAndProducts() async {
-    emit(state.copyWith(isLoading: true, errorMessage: null));
-    try {
-      await _repository.seedIfEmpty();
-      final categories = await _repository.getCategories();
-      final categoryId = state.selectedCategoryIndex == 0
-          ? null
-          : (state.selectedCategoryIndex <= categories.length
-              ? categories[state.selectedCategoryIndex - 1].id
-              : null);
-      final products = await _repository.getProducts(categoryId: categoryId);
-      emit(state.copyWith(
-        categories: categories,
-        products: products,
-        isLoading: false,
-        errorMessage: null,
-      ));
-    } catch (e) {
-      emit(state.copyWith(
-        isLoading: false,
-        errorMessage: e.toString(),
-      ));
+  static const String loadHomeData = 'loadHomeData';
+
+  void _initUser() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      emit(
+        state.copyWith(
+          userName: user.displayName ?? 'User',
+          avatarUrl: user.photoURL ?? '',
+        ),
+      );
     }
+  }
+
+  Future<void> loadCategoriesAndProducts() async {
+    handleApiCall<HomeDataModel>(
+      endPoint: loadHomeData,
+      apiCall: () => _repository.getHomeData(),
+    );
+  }
+
+  /// Override handleApiCall results if needed?
+  /// BaseCubit.handleApiCall automatically emits status and responseModel.
+  /// But we also want to update categories/products in the top-level state
+  /// for child widgets that don't use BaseBlocBuilder.
+  @override
+  void successOperation(String operation, {dynamic data}) {
+    if (operation == loadHomeData && data is HomeDataModel) {
+      emit(
+        state.copyWith(categories: data.categories, products: data.products),
+      );
+    }
+    super.successOperation(operation, data: data);
   }
 
   Future<void> selectCategory(int index) async {
     if (index == state.selectedCategoryIndex) return;
-    emit(state.copyWith(selectedCategoryIndex: index));
-    await _loadProductsForSelectedCategory();
-  }
 
-  Future<void> _loadProductsForSelectedCategory() async {
+    emit(state.copyWith(selectedCategoryIndex: index));
+
     final categoryId = state.selectedCategoryId;
-    try {
-      final products =
-          await _repository.getProducts(categoryId: categoryId);
-      emit(state.copyWith(products: products, errorMessage: null));
-    } catch (e) {
-      emit(state.copyWith(errorMessage: e.toString()));
-    }
+
+    // Load products for selected category
+    handleApiCall(
+      endPoint:
+          loadHomeData, // Reuse endpoint for simplicity in BaseBlocBuilder
+      apiCall: () async {
+        final result = await _repository.getProductsForCategory(
+          categoryId: categoryId,
+        );
+        return result.map(
+          (products) =>
+              HomeDataModel(categories: state.categories, products: products),
+        );
+      },
+    );
   }
 }

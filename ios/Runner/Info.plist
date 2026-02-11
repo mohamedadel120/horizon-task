@@ -47,5 +47,20 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<!-- Google Sign-In URL Scheme -->
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>com.googleusercontent.apps.284225918938-iamh801m6u9bubi7flm92sfuf7n505cl</string>
+				</array>
+			</dict>
+		</array>
+		<!-- Google Sign-In Client ID -->
+		<key>GIDClientID</key>
+		<string>284225918938-iamh801m6u9bubi7flm92sfuf7n505cl.apps.googleusercontent.com</string>
 	</dict>
 </plist>
