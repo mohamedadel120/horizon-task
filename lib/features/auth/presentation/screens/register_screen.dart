@@ -10,6 +10,7 @@ import 'package:task/core/routing/routes.dart';
 import 'package:task/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:task/features/auth/presentation/cubit/auth_state.dart';
 import 'package:task/features/auth/presentation/widgets/auth_header.dart';
+import 'package:task/core/widget/app_snackbar.dart';
 import 'package:task/features/auth/presentation/widgets/auth_footer_link.dart';
 import 'package:task/features/auth/presentation/widgets/or_divider.dart';
 import 'package:task/features/auth/presentation/widgets/register_form.dart';
@@ -31,9 +32,7 @@ class RegisterScreen extends StatelessWidget {
               context.goNamed(RouteNames.bottomNavBar);
             },
             onError: (context, state, error) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(error), backgroundColor: Colors.red),
-              );
+              AppSnackBar.showAnimatedError(context, message: error);
             },
             child: BaseBlocListener<AuthCubit, AuthState>(
               endPoint: AuthCubit.endpointRegister,
@@ -41,9 +40,7 @@ class RegisterScreen extends StatelessWidget {
                 context.goNamed(RouteNames.bottomNavBar);
               },
               onError: (context, state, error) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(error), backgroundColor: Colors.red),
-                );
+                AppSnackBar.showAnimatedError(context, message: error);
               },
               child: BlocBuilder<AuthCubit, AuthState>(
                 builder: (context, state) {

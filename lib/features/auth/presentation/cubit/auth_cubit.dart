@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:task/core/base/cubit/base_cubit.dart';
 import 'package:task/features/auth/data/models/app_user_model.dart';
 import 'package:task/features/auth/data/repositories/auth_repository.dart';
@@ -49,7 +50,7 @@ class AuthCubit extends BaseCubit<AuthState> {
         failOperation(endpointLogin, "Sign in cancelled");
       }
     } catch (e) {
-      failOperation(endpointLogin, _friendlyError(e));
+      failOperation(endpointLogin, _friendlyAppleError(e));
     }
   }
 
@@ -135,6 +136,24 @@ class AuthCubit extends BaseCubit<AuthState> {
   }
 
   // ─── Helpers ──────────────────────────────────────────────────
+
+  /// User-friendly message for Sign in with Apple (handles error 1000).
+  String _friendlyAppleError(dynamic e) {
+    if (e is SignInWithAppleAuthorizationException) {
+      if (e.code == AuthorizationErrorCode.unknown) {
+        return "Sign in with Apple isn't available here. ";
+            // "Try on a real device, or use Email / Google below to test. "
+            // "On simulator: sign in to Settings → [your name] with an Apple ID and retry, or use Email/Google.";
+      }
+      if (e.code == AuthorizationErrorCode.canceled) {
+        return 'Sign in cancelled';
+      }
+      if (e.code == AuthorizationErrorCode.notHandled) {
+        return 'Sign in was not completed. Please try again.';
+      }
+    }
+    return _friendlyError(e);
+  }
 
   String _friendlyError(dynamic e) {
     if (e is FirebaseAuthException) {

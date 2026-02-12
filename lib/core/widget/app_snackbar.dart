@@ -1,8 +1,31 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task/core/helpers/spacing.dart';
+import 'package:task/core/theming/colors.dart';
 
 /// Global SnackBar widget with consistent styling and functionality
 class AppSnackBar {
+  /// Show an error message with slide-up + fade animation (ideal for auth errors)
+  static void showAnimatedError(
+    BuildContext context, {
+    required String message,
+    Duration duration = const Duration(seconds: 5),
+    VoidCallback? onDismiss,
+  }) {
+    final overlay = Overlay.of(context);
+    late OverlayEntry entry;
+    entry = OverlayEntry(
+      builder: (ctx) => _AnimatedErrorBanner(
+        message: message,
+        duration: duration,
+        onDismiss: () {
+          entry.remove();
+          onDismiss?.call();
+        },
+      ),
+    );
+    overlay.insert(entry);
+  }
   /// Show a success SnackBar
   static void showSuccess(
     BuildContext context, {
@@ -259,5 +282,124 @@ extension SnackBarExtension on BuildContext {
   /// Clear all SnackBars
   void clearSnackBars() {
     AppSnackBar.clearAll(this);
+  }
+}
+
+/// Animated error banner with slide-up and fade (used by showAnimatedError)
+class _AnimatedErrorBanner extends StatefulWidget {
+  final String message;
+  final Duration duration;
+  final VoidCallback onDismiss;
+
+  const _AnimatedErrorBanner({
+    required this.message,
+    required this.duration,
+    required this.onDismiss,
+  });
+
+  @override
+  State<_AnimatedErrorBanner> createState() => _AnimatedErrorBannerState();
+}
+
+class _AnimatedErrorBannerState extends State<_AnimatedErrorBanner>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> _slideAnimation;
+  late Animation<double> _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 350),
+    );
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 1.2),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOutCubic,
+    ));
+    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+    );
+    _controller.forward();
+    Future.delayed(widget.duration, _animateOut);
+  }
+
+  Future<void> _animateOut() async {
+    if (!mounted) return;
+    await _controller.reverse();
+    if (mounted) widget.onDismiss();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      left: 16.w,
+      right: 16.w,
+      bottom: MediaQuery.of(context).padding.bottom + 24.h,
+      child: SlideTransition(
+        position: _slideAnimation,
+        child: FadeTransition(
+          opacity: _fadeAnimation,
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () => _animateOut(),
+              borderRadius: BorderRadius.circular(16.r),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+                decoration: BoxDecoration(
+                  color: ColorManager.statusError,
+                  borderRadius: BorderRadius.circular(16.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.12),
+                      blurRadius: 16,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.info_outline_rounded,
+                      color: Colors.white,
+                      size: 24.sp,
+                    ),
+                    horizontalSpace(12.w),
+                    Expanded(
+                      child: Text(
+                        widget.message,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                          height: 1.35,
+                        ),
+                      ),
+                    ),
+                    horizontalSpace(8.w),
+                    Icon(
+                      Icons.close,
+                      color: Colors.white70,
+                      size: 20.sp,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

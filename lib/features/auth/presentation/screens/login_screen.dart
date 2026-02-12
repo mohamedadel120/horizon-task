@@ -12,6 +12,7 @@ import 'package:task/features/auth/presentation/cubit/auth_state.dart';
 import 'package:task/features/auth/presentation/widgets/auth_header.dart';
 import 'package:task/features/auth/presentation/widgets/auth_footer_link.dart';
 import 'package:task/features/auth/presentation/widgets/login_form.dart';
+import 'package:task/core/widget/app_snackbar.dart';
 import 'package:task/features/auth/presentation/widgets/or_divider.dart';
 import 'package:task/features/auth/presentation/widgets/social_button.dart';
 
@@ -31,26 +32,18 @@ class LoginScreen extends StatelessWidget {
               context.goNamed(RouteNames.bottomNavBar);
             },
             onError: (context, state, error) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(error), backgroundColor: Colors.red),
-              );
+              AppSnackBar.showAnimatedError(context, message: error);
             },
             child: BaseBlocListener<AuthCubit, AuthState>(
               endPoint: AuthCubit.endpointForgotPassword,
               onSuccess: (context, state) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text(
-                      'Password reset email sent! Check your inbox.',
-                    ),
-                    backgroundColor: Colors.green,
-                  ),
+                AppSnackBar.showSuccess(
+                  context,
+                  message: 'Password reset email sent! Check your inbox.',
                 );
               },
               onError: (context, state, error) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(error), backgroundColor: Colors.red),
-                );
+                AppSnackBar.showAnimatedError(context, message: error);
               },
               child: BlocBuilder<AuthCubit, AuthState>(
                 builder: (context, state) {
